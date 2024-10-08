@@ -1,9 +1,9 @@
 // main.js
 
 const skillLevels = {
-    beginner: { color: "#A3E635", label: "Anfänger" }, // Soft Green
-    intermediate: { color: "#60A5FA", label: "Erfahren" }, // Bright Blue
-    advanced: { color: "#FB923C", label: "Fortgeschritten" }, // Vivid Orange
+    beginner: { color: "#A3E635", label: "Einsteiger" }, // Soft Green
+    intermediate: { color: "#60A5FA", label: "Fortgeschritten" }, // Bright Blue
+    advanced: { color: "#FB923C", label: "Versiert" }, // Vivid Orange
     expert: { color: "#EF4444", label: "Experte" }, // Deep Red
 };
 
@@ -120,7 +120,13 @@ $(document).ready(function () {
 
     // Typed.js initialization
     const typed = new Typed("#typed-output", {
-        strings: ["Full Stack Developer", "Tech Enthusiast", "Problem Solver"],
+        strings: [
+            "Systemadministrator",
+            "Full-Stack Entwickler",
+            "Technik Enthusiast",
+            "Digitalisierungsspezialist",
+            "Open-Source Liebhaber",
+        ],
         typeSpeed: 50,
         backSpeed: 30,
         backDelay: 1000,
@@ -155,6 +161,19 @@ $(document).ready(function () {
                 },
                 1000
             );
+        }
+    });
+
+    // Preserve scroll position on page reload
+    window.addEventListener("beforeunload", function () {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    });
+
+    window.addEventListener("load", function () {
+        const scrollPosition = localStorage.getItem("scrollPosition");
+        if (scrollPosition !== null) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            localStorage.removeItem("scrollPosition"); // Optional: Entfernen der gespeicherten Position nach dem Wiederherstellen
         }
     });
 
