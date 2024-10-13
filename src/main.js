@@ -197,25 +197,6 @@ $(document).ready(function () {
         });
     }
 
-    // Copy to clipboard functionality
-    $('.copy-to-clipboard').on('click', function(e) {
-        let clipboardText = $(this).data('clipboard');
-        let toastText = $(this).data('toast');
-        
-        // Copy to clipboard
-        copyTextToClipboard(clipboardText);
-
-        // Show toast notification
-        Toastify({
-            text: toastText,
-            duration: 3000,
-            close: true,
-            gravity: "bottom",
-            position: "right",
-            backgroundColor: "#4CAF50",
-        }).showToast();
-    });
-
     // Set current year in footer
     $("#current-year").text(new Date().getFullYear());
 });
