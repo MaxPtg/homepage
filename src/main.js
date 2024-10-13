@@ -106,13 +106,17 @@ $(document).ready(function () {
         interactivity: {
             detect_on: "canvas",
             events: {
-                onhover: { enable: true, mode: "repulse" },
+                onhover: {
+                    enable: true,
+                    mode: "repulse",
+                    parallax: {
+                        enable: false,
+                        force: 60,
+                        smooth: 10,
+                    },
+                },
                 onclick: { enable: true, mode: "push" },
                 resize: true,
-            },
-            modes: {
-                repulse: { distance: 200, duration: 0.4 },
-                push: { particles_nb: 4 },
             },
         },
         retina_detect: true,
@@ -133,6 +137,14 @@ $(document).ready(function () {
         loop: true,
     });
 
+    // Make name and typed text unselectable
+    $("#hero").css({
+        "-webkit-user-select": "none",
+        "-moz-user-select": "none",
+        "-ms-user-select": "none",
+        "user-select": "none",
+    });
+
     // Scroll event for header and scroll-to-top button
     $(window).scroll(function () {
         if ($(window).scrollTop() > 100) {
@@ -151,10 +163,10 @@ $(document).ready(function () {
 
     // Smooth scrolling for anchor links
     $('a[href^="#"]').on("click", function (event) {
-        var target = $(this.getAttribute("href"));
+        let target = $(this.getAttribute("href"));
         if (target.length) {
             event.preventDefault();
-            var offset = target.offset().top - $(window).height() * 0.07;
+            let offset = target.offset().top - $(window).height() * 0.07;
             $("html, body").stop().animate(
                 {
                     scrollTop: offset,
@@ -168,13 +180,64 @@ $(document).ready(function () {
     window.addEventListener("beforeunload", function () {
         localStorage.setItem("scrollPosition", window.scrollY);
     });
-
     window.addEventListener("load", function () {
         const scrollPosition = localStorage.getItem("scrollPosition");
         if (scrollPosition !== null) {
             window.scrollTo(0, parseInt(scrollPosition, 10));
             localStorage.removeItem("scrollPosition"); // Optional: Entfernen der gespeicherten Position nach dem Wiederherstellen
         }
+    });
+
+    function fallbackCopyTextToClipboard(text) {
+        let textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            let successful = document.execCommand('copy');
+            let msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    // Function to copy text to clipboard
+    function copyTextToClipboard(text) {
+        if (!navigator.clipboard) {
+            fallbackCopyTextToClipboard(text);
+            return;
+        }
+        navigator.clipboard.writeText(text).then(function() {
+            console.log('Async: Copying to clipboard was successful!');
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    }
+
+    // Copy to clipboard functionality
+    $('.copy-to-clipboard').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let clipboardText = $(this).data('clipboard');
+        let toastText = $(this).data('toast');
+        
+        // Copy to clipboard
+        copyTextToClipboard(clipboardText);
+
+        // Show toast notification
+        Toastify({
+            text: toastText,
+            duration: 3000,
+            close: true,
+            gravity: "bottom",
+            position: "right",
+            backgroundColor: "#4CAF50",
+        }).showToast();
     });
 
     // Set current year in footer

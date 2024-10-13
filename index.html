@@ -18,6 +18,8 @@
         <script src="src/lib/particles.min.js" defer></script>
         <script src="src/lib/typed.min.js" defer></script>
         <script src="src/lib/jquery.min.js" defer></script>
+        <script src="src/lib/toastify.min.js" defer></script>
+        <link rel="stylesheet" href="src/lib/toastify.min.css" />
 
         <!-- Custom -->
         <script src="src/main.js" defer></script>
@@ -45,7 +47,7 @@
             </nav>
         </header>
 
-        <section class="relative min-h-screen flex items-center justify-center">
+        <section id="hero" class="relative min-h-screen flex items-center justify-center">
             <div id="particles-js" class="absolute inset-0"></div>
             <div class="text-center z-10">
                 <h1 class="text-6xl font-bold mb-4 text-shadow">Max Patecky</h1>
@@ -73,32 +75,31 @@
             </section>
 
             <section id="projects" class="scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-8 text-center">Aktuelle Projekte</h2>
+                <h2 class="text-3xl font-bold mb-8 text-center">Meine Projekte</h2>
                 <div id="projects-content" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </section>
 
-            <section id="contact" class="scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-8 text-center">Kontakt</h2>
+            <section id="contact" class="section scroll-mt-20">
+                <h2 id="kontakt" class="text-3xl font-bold mb-8 text-center">Kontakt</h2>
                 <div class="flex justify-center space-x-4">
-                    <!-- GitHub -->
                     <a
                         href="https://github.com/MaxPtg"
-                        target="_blank"
-                        class="p-2 border rounded-full hover:bg-gray-700 transition-colors">
-                        <img src="/img/icons/github.svg" alt="GH" class="w-8 h-8" />
+                        class="p-2 border rounded-full hover:bg-gray-700 transition-colors"
+                        target="_blank">
+                        <img src="/img/icons/github.svg" alt="GitHub" class="w-8 h-8" />
                     </a>
-                    <!-- LinkedIn -->
                     <a
                         href="https://www.linkedin.com/in/max-patecky-70a8b427a/"
-                        target="_blank"
-                        class="p-2 border rounded-full hover:bg-gray-700 transition-colors">
-                        <img src="/img/icons/linkedin.svg" alt="LI" class="w-8 h-8" />
+                        class="p-2 border rounded-full hover:bg-gray-700 transition-colors"
+                        target="_blank">
+                        <img src="/img/icons/linkedin.svg" alt="LinkedIn" class="w-8 h-8" />
                     </a>
-                    <!-- Email -->
                     <a
                         href="mailto://dev@patecky.net"
-                        class="p-2 border rounded-full hover:bg-gray-700 transition-colors">
-                        <img src="/img/icons/email.svg" alt="MA" class="w-8 h-8" />
+                        class="p-2 border rounded-full hover:bg-gray-700 transition-colors copy-to-clipboard"
+                        data-clipboard="dev@patecky.net"
+                        data-toast="E-Mail-Adresse kopiert!">
+                        <img src="/img/icons/email.svg" alt="Email" class="w-8 h-8" />
                     </a>
                 </div>
             </section>
