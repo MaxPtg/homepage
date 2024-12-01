@@ -24,24 +24,20 @@ function initializeTechTags() {
         tag.style.borderColor = getProficiencyColor(proficiency);
     });
 
-    initializeProficiencyTooltip();
+    initializeProficiency();
 }
 
-function initializeProficiencyTooltip() {
-    const tooltipContent = document.getElementById("proficiency-tooltip");
-    let content = '<div class="text-sm">';
+function initializeProficiency() {
+    const $container = $("#proficiencies");
 
-    for (const [level, data] of Object.entries(skillLevels)) {
-        content += `
-            <div class="flex items-center mb-1">
-                <div class="w-3 h-3 rounded-full mr-2" style="background-color: ${data.color};"></div>
-                <span>${data.label}</span>
-            </div>
-        `;
-    }
+    Object.entries(skillLevels).forEach(([level, data]) => {
+        const $skillLevel = $("<div>")
+            .addClass("proficiency")
+            .append($("<div>").addClass("color-indicator").css("background-color", data.color))
+            .append($("<span>").text(data.label));
 
-    content += "</div>";
-    tooltipContent.innerHTML = content;
+        $container.append($skillLevel);
+    });
 }
 
 function createTechTagContent(tech, icon) {
@@ -190,11 +186,14 @@ $(document).ready(function () {
 
     // Function to copy text to clipboard
     function copyTextToClipboard(text) {
-        navigator.clipboard.writeText(text).then(function() {
-            // console.log('Async: Copying to clipboard was successful!');
-        }, function(err) {
-            console.error('Async: Could not copy text: ', err);
-        });
+        navigator.clipboard.writeText(text).then(
+            function () {
+                // console.log('Async: Copying to clipboard was successful!');
+            },
+            function (err) {
+                console.error("Async: Could not copy text: ", err);
+            }
+        );
     }
 
     // Set current year in footer
